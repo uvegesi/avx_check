@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+import os
 
 found_items = []
 urls = ['https://avxforum.hu/forum/viewforum.php?f=64',
@@ -10,9 +11,9 @@ urls = ['https://avxforum.hu/forum/viewforum.php?f=64',
             'https://avxforum.hu/forum/viewforum.php?f=64&&start=50'
             ]
 
-email_user = 'uvegesi@yahoo.com'
-email_password = 'znba cxkv uswy grwd'
-email_to = 'uveges.istvan@gmail.com'
+email_user = os.environ["EMAIL_FROM"]
+email_password = os.environ["SOME_SECRET"]
+email_to = os.environ["EMAIL_TO"]
 
 def search_avx_for_item(item_to_search):
     try:
@@ -53,6 +54,6 @@ def send_email(subject, body):
 
 
 if __name__ =="__main__":
-    item = 'Audioquest'
+    item = 'Ethosz'
     found_avx_items = search_avx_for_item(item)
     send_email(subject='Ethosz!!!', body=found_avx_items)

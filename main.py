@@ -31,7 +31,8 @@ def search_avx_for_item(item_to_search):
         return found_items_multiline
     except requests.HTTPError as err:
         if err.response.status_code != 200:
-            print('Something went wrong..', err.response.status_code)
+            error_message = f'Something went wrong..{err.response.status_code}'
+            return error_message
 
 
 def send_email(subject, body):

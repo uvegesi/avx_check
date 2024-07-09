@@ -10,3 +10,4 @@ email_password = os.environ["SOME_SECRET"]
 email_to = os.environ["EMAIL_TO"]
 
 item_to_search = 'Ethosz'
+add = []

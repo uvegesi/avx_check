@@ -3,21 +3,13 @@ from bs4 import BeautifulSoup
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-import os
+import config
 
 found_items = []
-urls = ['https://avxforum.hu/forum/viewforum.php?f=64',
-            'https://avxforum.hu/forum/viewforum.php?f=64&sid=70d662223359609be8192b6e76c25195&start=25',
-            'https://avxforum.hu/forum/viewforum.php?f=64&&start=50'
-            ]
-
-email_user = os.environ["EMAIL_FROM"]
-email_password = os.environ["SOME_SECRET"]
-email_to = os.environ["EMAIL_TO"]
 
 def search_avx_for_item(item_to_search):
     try:
-        for url in urls:
+        for url in config.urls:
             response = requests.get(url)
             soup = BeautifulSoup(response.text, 'html.parser')
             items = soup.find_all('a', class_='topictitle')
@@ -37,17 +29,17 @@ def search_avx_for_item(item_to_search):
 
 def send_email(subject, body):
     msg = MIMEMultipart()
-    msg['From'] = email_user
-    msg['To'] = email_to
+    msg['From'] = config.email_user
+    msg['To'] = config.email_to
     msg['Subject'] = subject
     msg.attach(MIMEText(body, 'plain'))
 
     try:
         server = smtplib.SMTP('smtp.mail.yahoo.com', 587)  # Replace with your SMTP server
         server.starttls()
-        server.login(email_user, email_password)
+        server.login(config.email_user, config.email_password)
         text = msg.as_string()
-        server.sendmail(email_user, email_to, text)
+        server.sendmail(config.email_user, config.email_to, text)
         server.quit()
         print('Email sent successfully')
     except Exception as e:
@@ -55,6 +47,5 @@ def send_email(subject, body):
 
 
 if __name__ =="__main__":
-    item = 'Ethosz'
-    found_avx_items = search_avx_for_item(item)
+    found_avx_items = search_avx_for_item(config.item_to_search)
     send_email(subject='Ethosz!!!', body=found_avx_items)

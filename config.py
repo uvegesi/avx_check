@@ -5,7 +5,7 @@ urls = ['https://avxforum.hu/forum/viewforum.php?f=64',
         'https://avxforum.hu/forum/viewforum.php?f=64&&start=50'
         ]
 
-email_user = os.environ["EMAIL_FROM"]
+email_user = os.environ['EMAIL_FROM']
 email_password = os.environ["SOME_SECRET"]
 email_to = os.environ["EMAIL_TO"]
 

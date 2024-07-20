@@ -40,6 +40,7 @@ def send_email(subject, body):
         server = smtplib.SMTP_SSL('smtp.mail.yahoo.com', 465)  # Connect using SSL
         print('now logging in..')
         server.set_debuglevel(1)  # Enable debug output for smtplib
+        print('Logging in as:', os.environ['EMAIL_FROM'], os.environ["SOME_SECRET"])
         server.login(os.environ['EMAIL_FROM'], os.environ["SOME_SECRET"])
         print('Logged in as:', os.environ['EMAIL_FROM'])
         text = msg.as_string()

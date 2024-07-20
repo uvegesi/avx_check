@@ -35,19 +35,24 @@ def send_email(subject, body):
     msg['Subject'] = subject
     msg.attach(MIMEText(body, 'plain'))
 
-    try:     
+    try:
         print("Starting SSL connection to SMTP server...")
         server = smtplib.SMTP_SSL('smtp.mail.yahoo.com', 465)  # Connect using SSL
         print('now logging in..')
+        server.set_debuglevel(1)  # Enable debug output for smtplib
         server.login(config.email_user, config.email_password)
-        # server.login(os.environ['EMAIL_USER'], os.environ['EMAIL_PASSWORD'])
         print('Logged in as:', config.email_user)
         text = msg.as_string()
         print('Message content:', text)
         server.sendmail(config.email_user, config.email_to, text)
-        # server.sendmail(os.environ['EMAIL_USER'], os.environ['EMAIL_TO'], text)
         server.quit()
         print('Email sent successfully')
+    except smtplib.SMTPAuthenticationError as e:
+        print(f'Failed to authenticate: {e.smtp_code} {e.smtp_error}')
+    except smtplib.SMTPConnectError as e:
+        print(f'Failed to connect: {e.smtp_code} {e.smtp_error}')
+    except smtplib.SMTPException as e:
+        print(f'SMTP error occurred: {e}')
     except Exception as e:
         print(f'Failed to send email: {e}')
 

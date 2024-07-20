@@ -36,6 +36,7 @@ def send_email(subject, body):
     msg.attach(MIMEText(body, 'plain'))
 
     try:
+        print("heeeeeeeeeeeeeeeeeeeee")
         server = smtplib.SMTP('smtp.mail.yahoo.com', 587)  # Replace with your SMTP server
         print('do we get here?')
         server.starttls()

@@ -36,13 +36,28 @@ def send_email(subject, body):
     msg.attach(MIMEText(body, 'plain'))
 
     try:
+        print("heeeeeeeeeeeeeeeeeeeee")
+        server = smtplib.SMTP('smtp.mail.yahoo.com', 587)  # Replace with your SMTP server
+        print('do we get here?')
+        server.starttls()
+        server.login(config.email_user, config.email_password)
+        print('user: ', config.email_user, 'Passw: ', config.email_password)
+        print('user: ', os.environ['EMAIL_USER'], 'Passw: ', os.environ['EMAIL_PASSWORD'])
+        text = msg.as_string()
+        print('message:', text)
+        server.sendmail(config.email_user, config.email_to, text)
+        server.quit()
+        print('Email sent successfully')
+        
         print("Starting SSL connection to SMTP server...")
         server = smtplib.SMTP_SSL('smtp.mail.yahoo.com', 465)  # Connect using SSL
-        server.login(os.environ['EMAIL_USER'], os.environ['EMAIL_PASSWORD'])
-        print('Logged in as:', os.environ['EMAIL_USER'])
+        server.login(config.email_user, config.email_password)
+        # server.login(os.environ['EMAIL_USER'], os.environ['EMAIL_PASSWORD'])
+        print('Logged in as:', config.email_user)
         text = msg.as_string()
         print('Message content:', text)
-        server.sendmail(os.environ['EMAIL_USER'], os.environ['EMAIL_TO'], text)
+        server.sendmail(config.email_user, config.email_to, text)
+        # server.sendmail(os.environ['EMAIL_USER'], os.environ['EMAIL_TO'], text)
         server.quit()
         print('Email sent successfully')
     except Exception as e:

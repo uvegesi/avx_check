@@ -33,7 +33,14 @@ jobs:
           SOME_SECRET: ${{ secrets.SOME_SECRET }}
           EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
           EMAIL_TO: ${{ secrets.EMAIL_TO }}
-          
+
+      - name: Check SMTP connectivity
+        run: |
+          sudo apt-get install -y telnet
+          echo "Trying to connect to SMTP server..."
+          (echo quit) | telnet smtp.mail.yahoo.com 587
+        shell: bash
+
       - name: Execute py script # run main.py
         env:
           SOME_SECRET: ${{ secrets.SOME_SECRET }}

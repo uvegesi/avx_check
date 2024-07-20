@@ -36,9 +36,11 @@ def send_email(subject, body):
 
     try:
         server = smtplib.SMTP('smtp.mail.yahoo.com', 587)  # Replace with your SMTP server
+        print('do we get here?')
         server.starttls()
         server.login(config.email_user, config.email_password)
         print('user: ', config.email_user, 'Passw: ', config.email_password)
+        print('user: ', os.environ['EMAIL_USER'], 'Passw: ', os.environ['EMAIL_PASSWORD'])
         text = msg.as_string()
         print('message:', text)
         server.sendmail(config.email_user, config.email_to, text)

@@ -9,4 +9,8 @@ email_user = os.environ['EMAIL_FROM']
 email_password = os.environ["SOME_SECRET"]
 email_to = os.environ["EMAIL_TO"]
 
-item_to_search = 'Ethosz'
+# email_user = 'uvegesi@yahoo.com'
+# email_password = os.environ["SOME_SECRET"]
+# email_to = os.environ["EMAIL_TO"]
+
+item_to_search = 'Audioquest'

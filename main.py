@@ -30,8 +30,8 @@ def search_avx_for_item(item_to_search):
 
 def send_email(subject, body):
     msg = MIMEMultipart()
-    msg['From'] = config.email_user
-    msg['To'] = config.email_to
+    msg['From'] = os.environ['EMAIL_FROM']
+    msg['To'] = os.environ['EMAIL_TO']
     msg['Subject'] = subject
     msg.attach(MIMEText(body, 'plain'))
 

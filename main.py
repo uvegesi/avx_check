@@ -38,6 +38,7 @@ def send_email(subject, body):
     try:     
         print("Starting SSL connection to SMTP server...")
         server = smtplib.SMTP_SSL('smtp.mail.yahoo.com', 465)  # Connect using SSL
+        print('now logging in..')
         server.login(config.email_user, config.email_password)
         # server.login(os.environ['EMAIL_USER'], os.environ['EMAIL_PASSWORD'])
         print('Logged in as:', config.email_user)

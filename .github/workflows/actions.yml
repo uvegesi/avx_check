@@ -37,10 +37,9 @@ jobs:
 
       - name: Check SMTP connectivity
         run: |
-          sudo apt-get install -y telnet
           echo "Trying to connect to SMTP server..."
-          (echo quit) | telnet smtp.mail.yahoo.com 587
-        shell: bash
+          Test-NetConnection -ComputerName smtp.mail.yahoo.com -Port 587
+        shell: pwsh
 
       - name: Execute py script # run main.py
         env:

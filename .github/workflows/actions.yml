@@ -8,6 +8,7 @@ on:
 jobs:
   build:
     runs-on: windows-latest
+    environment: avx_env
     steps:
 
       - name: Checkout repository content

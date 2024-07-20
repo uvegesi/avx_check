@@ -40,11 +40,12 @@ def send_email(subject, body):
         server = smtplib.SMTP_SSL('smtp.mail.yahoo.com', 465)  # Connect using SSL
         print('now logging in..')
         server.set_debuglevel(1)  # Enable debug output for smtplib
-        server.login(config.email_user, config.email_password)
-        print('Logged in as:', config.email_user)
+        server.login(os.environ['EMAIL_FROM'], os.environ["SOME_SECRET"])
+        print('Logged in as:', os.environ['EMAIL_FROM'])
         text = msg.as_string()
         print('Message content:', text)
-        server.sendmail(config.email_user, config.email_to, text)
+        # server.sendmail(config.email_user, config.email_to, text)
+        server.sendmail(os.environ['EMAIL_FROM'], os.environ['EMAIL_TO'], text)
         server.quit()
         print('Email sent successfully')
     except smtplib.SMTPAuthenticationError as e:
